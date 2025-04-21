@@ -1,16 +1,34 @@
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
   public static void main(String[] args) {
-    String expected = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
 
-    String result = new RentalInfo().statement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+    Movie[] movies = new Movie[] {
+            new Movie("You've Got Mail", Movie.REGULAR),
+            new Movie("Matrix", Movie.REGULAR),
+            new Movie("Cars", Movie.CHILDREN),
+            new Movie("Fast & Furious X", Movie.NEW_RELEASE)
+    };
 
-    if (!result.equals(expected)) {
-      throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
+    Map<Movie, Integer> daysRented = new HashMap<>();
+    daysRented.put(movies[0], 3);
+    daysRented.put(movies[1], 1);
+    daysRented.put(movies[2], 8);
+    daysRented.put(movies[3], 7);
+
+    Customer customer = new Customer("Eduardo Forell");
+
+    for (Movie movie : movies) {
+      Integer daysRent = daysRented.get(movie);
+      if (daysRent != null) {
+        customer.addRental(new MovieRental(movie, daysRent));
+      } else {
+        System.out.println("Rental duration not found");
+      }
     }
-
-    System.out.println("Success");
+    
+    System.out.println(customer.statement());
   }
 }

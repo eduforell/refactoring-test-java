@@ -1,17 +1,17 @@
 public class MovieRental {
-    private String movieId;
-    private int days;
+    private final Movie movie;
+    private final int daysRented;
 
-    public MovieRental(String movieId, int days) {
-        this.movieId = movieId;
-        this.days = days;
+    public MovieRental(Movie movie, int daysRented) {
+        this.movie = movie;
+        this.daysRented = daysRented;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public int getDays() {
-        return days;
+    public int getDaysRented() {
+        return daysRented;
     }
 }
